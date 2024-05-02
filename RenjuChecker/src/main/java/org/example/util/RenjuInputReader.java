@@ -24,6 +24,7 @@ public class RenjuInputReader {
                         board[i][j] = Integer.parseInt(row[j]);
                     }
                 }
+                reader.readLine();
                 testCases.add(board);
             }
             reader.close();

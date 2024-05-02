@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class RenjuWinChecker {
     int winLine = 5;
-//    int boardSize =
+
     public List<TestResult> checkRenjuTests(List<Integer[][]> tesCases) {
         return tesCases.stream().map(s -> checkWinner(s)).collect(Collectors.toList());
     }
@@ -21,25 +21,25 @@ public class RenjuWinChecker {
                         testResult.setWinner(board[i][j]);
                         testResult.setHorizontalPos(i);
                         testResult.setVerticalPos(j);
-                        break;
+                        return testResult;
                     }
                     if(checkVerticalWinCondition(board, board[i][j], i, j)) {
                         testResult.setWinner(board[i][j]);
                         testResult.setHorizontalPos(i);
                         testResult.setVerticalPos(j);
-                        break;
+                        return testResult;
                     }
                     if(checkDiagonalAscentWinCondition(board, board[i][j], i, j)) {
                         testResult.setWinner(board[i][j]);
                         testResult.setHorizontalPos(i);
                         testResult.setVerticalPos(j);
-                        break;
+                        return testResult;
                     }
                     if(checkDiagonalDescentWinCondition(board, board[i][j], i, j)) {
                         testResult.setWinner(board[i][j]);
                         testResult.setHorizontalPos(i);
                         testResult.setVerticalPos(j);
-                        break;
+                        return testResult;
                     }
                 }
             }
@@ -49,10 +49,9 @@ public class RenjuWinChecker {
 
     private boolean checkDiagonalDescentWinCondition(Integer[][] board, Integer current, int xPos, int yPos) {
         int counter = 1;
-        if((xPos <= board.length - winLine && yPos >= winLine - 1)
-                && ((xPos == 0 || yPos == 0) || (board[xPos - 1][yPos - 1] != current)) ) {
-            int j = yPos;
-            for(int i = xPos + 1; i >= 0 && j < board[i].length; i++) {
+        if((xPos == 0 || yPos == 0) || (board[xPos - 1][yPos - 1] != current)) {
+            int j = yPos + 1;
+            for(int i = xPos + 1; i < board.length && j < board[i].length; i++) {
                 if(board[i][j] != current) {
                     break;
                 }
@@ -67,8 +66,8 @@ public class RenjuWinChecker {
         int counter = 1;
         if((xPos >= winLine - 1 && yPos <= board[xPos].length - winLine)
                 && ((xPos == board.length - 1 || yPos == 0) || (board[xPos + 1][yPos - 1] != current)) ) {
-            int j = yPos;
-            for(int i = xPos + 1; i >= 0 && j < board[i].length; i--) {
+            int j = yPos + 1;
+            for(int i = xPos - 1; i >= 0 && j < board[i].length; i--) {
                 if(board[i][j] != current) {
                     break;
                 }

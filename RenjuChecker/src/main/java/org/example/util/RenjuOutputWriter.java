@@ -14,7 +14,7 @@ public class RenjuOutputWriter {
             for(TestResult t : testResults) {
                 writer.println(t.getWinner());
                 if(t.getWinner() != 0) {
-                    writer.println(t.getHorizontalPos() + t.getVerticalPos());
+                    writer.println((t.getHorizontalPos() + 1) + " " + (t.getVerticalPos() + 1));
                 }
             }
             System.out.println("Numbers printed to " + RENJU_TEST_RESULT_FILE);
