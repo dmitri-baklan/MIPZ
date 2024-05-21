@@ -13,38 +13,28 @@ public class RenjuWinChecker {
     }
 
     public TestResult checkWinner(Integer[][] board) {
-        TestResult testResult = new TestResult();
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[i].length; j++) {
-                if(board[i][j] != 0) {
-                    if(checkHorizontalWinCondition(board[i], board[i][j], j)) {
-                        testResult.setWinner(board[i][j]);
-                        testResult.setHorizontalPos(i);
-                        testResult.setVerticalPos(j);
-                        return testResult;
-                    }
-                    if(checkVerticalWinCondition(board, board[i][j], i, j)) {
-                        testResult.setWinner(board[i][j]);
-                        testResult.setHorizontalPos(i);
-                        testResult.setVerticalPos(j);
-                        return testResult;
-                    }
-                    if(checkDiagonalAscentWinCondition(board, board[i][j], i, j)) {
-                        testResult.setWinner(board[i][j]);
-                        testResult.setHorizontalPos(i);
-                        testResult.setVerticalPos(j);
-                        return testResult;
-                    }
-                    if(checkDiagonalDescentWinCondition(board, board[i][j], i, j)) {
-                        testResult.setWinner(board[i][j]);
-                        testResult.setHorizontalPos(i);
-                        testResult.setVerticalPos(j);
-                        return testResult;
-                    }
+                if(board[i][j] == 0) {
+                    continue;
                 }
+                setUpWinnerData(board, i, j);
             }
         }
         return testResult;
+    }
+
+    private TestResult setUpWinnerData(Integer[][] board, int i, int j) {
+        if(checkHorizontalWinCondition(board[i], board[i][j], j)
+                || checkVerticalWinCondition(board, board[i][j], i, j)
+                || checkDiagonalAscentWinCondition(board, board[i][j], i, j)
+                || checkDiagonalDescentWinCondition(board, board[i][j], i, j)) {
+            TestResult testResult = new TestResult();
+            testResult.setWinner(board[i][j]);
+            testResult.setHorizontalPos(i);
+            testResult.setVerticalPos(j);
+            return testResult;
+        }
     }
 
     private boolean checkDiagonalDescentWinCondition(Integer[][] board, Integer current, int xPos, int yPos) {

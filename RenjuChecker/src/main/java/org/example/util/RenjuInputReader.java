@@ -6,6 +6,8 @@ import java.util.List;
 
 public class RenjuInputReader {
     private static final String RENJU_FILE_TEST = "C:\\Users\\Dmytro\\Desktop\\MPIZLocal\\MIPZ\\RenjuChecker\\src\\main\\in.txt";
+    private static Integer renguBoardWidth = 19;
+    private static Integer renguBoardHeight = 19;
     public List<Integer[][]> readRenjuTestCases() throws FileNotFoundException {
 
         BufferedReader reader = new BufferedReader(new FileReader(RENJU_FILE_TEST));
@@ -16,11 +18,11 @@ public class RenjuInputReader {
             int numTestCases = Integer.parseInt(reader.readLine().trim());
             // Iterate through each test case
             for (int t = 0; t < numTestCases; t++) {
-                Integer[][] board = new Integer[19][19];
+                Integer[][] board = new Integer[renjuBoardHeight][renjuBoardWidth];
                 // Read the input data for the current test case
-                for (int i = 0; i < 19; i++) {
+                for (int i = 0; i < renjuBoardHeight; i++) {
                     String[] row = reader.readLine().trim().split("\\s+");
-                    for (int j = 0; j < 19; j++) {
+                    for (int j = 0; j < renjuBoardWidth; j++) {
                         board[i][j] = Integer.parseInt(row[j]);
                     }
                 }
