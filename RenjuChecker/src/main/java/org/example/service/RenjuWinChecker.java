@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class RenjuWinChecker {
     int winLine = 5;
 
-    public List<TestResult> checkRenjuTests(List<Integer[][]> tesCases) {
+    public List<TestResult> checkRenjuTests(List<Integer[][]> testCases) {
         return tesCases.stream().map(s -> checkWinner(s)).collect(Collectors.toList());
     }
 
@@ -64,8 +64,7 @@ public class RenjuWinChecker {
 
     private boolean checkDiagonalAscentWinCondition(Integer[][] board, Integer current, int xPos, int yPos) {
         int counter = 1;
-        if((xPos >= winLine - 1 && yPos <= board[xPos].length - winLine)
-                && ((xPos == board.length - 1 || yPos == 0) || (board[xPos + 1][yPos - 1] != current)) ) {
+        if((xPos == board.length - 1 || yPos == 0) || (board[xPos + 1][yPos - 1] != current)) {
             int j = yPos + 1;
             for(int i = xPos - 1; i >= 0 && j < board[i].length; i--) {
                 if(board[i][j] != current) {
