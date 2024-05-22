@@ -25,7 +25,7 @@ public class RenjuWinChecker {
     }
 
     private TestResult setUpWinnerData(Integer[][] board, int i, int j) {
-        if(checkHorizontalWinCondition(board[i], board[i][j], j)
+        if(checkHorizontalWinCondition(board, board[i][j], i, j)
                 || checkVerticalWinCondition(board, board[i][j], i, j)
                 || checkDiagonalAscentWinCondition(board, board[i][j], i, j)
                 || checkDiagonalDescentWinCondition(board, board[i][j], i, j)) {
@@ -39,7 +39,7 @@ public class RenjuWinChecker {
 
     private boolean checkDiagonalDescentWinCondition(Integer[][] board, Integer current, int xPos, int yPos) {
         int counter = 1;
-        if((xPos == 0 || yPos == 0) || (board[xPos - 1][yPos - 1] != current)) {
+        if(diagonalBeginingLineCondition(board, current, xPos, yPos, true)) {
             int j = yPos + 1;
             for(int i = xPos + 1; i < board.length && j < board[i].length; i++) {
                 if(board[i][j] != current) {
@@ -54,7 +54,7 @@ public class RenjuWinChecker {
 
     private boolean checkDiagonalAscentWinCondition(Integer[][] board, Integer current, int xPos, int yPos) {
         int counter = 1;
-        if((xPos == board.length - 1 || yPos == 0) || (board[xPos + 1][yPos - 1] != current)) {
+        if(diagonalBeginingLineCondition(board, current, xPos, yPos, false)) {
             int j = yPos + 1;
             for(int i = xPos - 1; i >= 0 && j < board[i].length; i--) {
                 if(board[i][j] != current) {
@@ -67,9 +67,9 @@ public class RenjuWinChecker {
         return counter == winLine;
     }
 
-    public boolean checkHorizontalWinCondition(Integer[] board, int current, int yPos) {
+    private boolean checkHorizontalWinCondition(Integer[][] board, int current, int xPos, int yPos) {
         int counter = 1;
-        if((yPos == 0) || (board[yPos - 1] != current)) {
+        if(straightLineBeginingCondition(board, current, xPos, yPos, true)) {
             for(int i = yPos + 1; i < board.length; i++) {
                 if(board[i] != current) {
                     break;
@@ -80,9 +80,9 @@ public class RenjuWinChecker {
         return counter == winLine;
     }
 
-    public boolean checkVerticalWinCondition(Integer[][] board, int current, int xPos, int yPos) {
+    private boolean checkVerticalWinCondition(Integer[][] board, int current, int xPos, int yPos) {
         int counter = 1;
-        if((xPos == 0) || (board[xPos - 1][yPos] != current)) {
+        if(straightLineBeginingCondition(board, current, xPos, yPos, false)) {
             for(int i = xPos + 1; i < board.length; i++) {
                 if(board[i][yPos] != current) {
                     break;
@@ -92,4 +92,19 @@ public class RenjuWinChecker {
         }
         return counter == winLine;
     }
+
+    private boolean diagonalLineBeginingCondition(Integer[][] board, int current, int xPos, int yPos, boolean isDescending) {
+        int xPoseComparing = isDescending ? 0 : board.length - 1;
+        int xPoseValueComparing = isDescending ? -1 : 0;
+        return (xPos == xPoseComparing || yPos == 0) || (board[xPos + xPoseValueComparing][yPos - 1] != current);
+    }
+
+    private boolean straightLineBeginingCondition(Integer[][] board, int current, int xPos, int yPos, boolean isHorizontal) {
+        int posToCompare = isHorizontal ? yPos : xPos;
+        int xPosIndexCheck = isHorizontal ? 0 : 1;
+        int yPosIndexCheck = isHorizontal ? 1 : 0;
+        return (posToCompare == 0) || (board[xPos - xPosValueCheck][yPos - yPosIndexCheck] != current);
+    }
+
+
 }
