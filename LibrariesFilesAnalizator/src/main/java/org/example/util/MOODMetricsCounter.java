@@ -110,10 +110,10 @@ public class MOODMetricsCounter extends LibraryMetricsCounter{
     private double countAttributeHidingFactor(Class<?> clazz, Set<Class<?>> allClasses) {
         Field[] fields = clazz.getDeclaredFields();
         int totalFields = fields.length;
-        int totalClasses = allClasses.size(); // Assuming all classes are in the same package
+        int totalClasses = allClasses.size();
 
         if (totalFields == 0) {
-            return 1.0; // If there are no fields, AHF is defined to be 1.0 (fully encapsulated)
+            return 1.0;
         }
 
         double sumInvisibilities = 0.0;
@@ -133,13 +133,13 @@ public class MOODMetricsCounter extends LibraryMetricsCounter{
 
     private double calculateInvisibilityFields(int modifiers, int totalClasses) {
         if (Modifier.isPrivate(modifiers)) {
-            return 1.0; // Private attributes are fully hidden
+            return 1.0;
         } else if (Modifier.isProtected(modifiers)) {
             return (totalClasses - 1) / (double) totalClasses;
         } else if (Modifier.isPublic(modifiers)) {
-            return 0.0; // Public attributes are not hidden
+            return 0.0;
         } else {
-            return (totalClasses - 1) / (double) totalClasses; // Package-private attributes are hidden from classes outside the package
+            return (totalClasses - 1) / (double) totalClasses;
         }
     }
     private double calculateInvisibilityMethods(int modifiers, int totalClasses) {
