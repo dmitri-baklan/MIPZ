@@ -146,8 +146,8 @@ public class LibraryMetricsCounter implements LibraryMetrics {
         return tree;
     }
 
-    protected int countAllChildrens(Map<Integer, List<Class<?>>> childrenTree) {
-        return (int) childrenTree.values().stream().mapToLong(Collection::size).sum();
+    protected double countAllChildrens(Map<Integer, List<Class<?>>> childrenTree) {
+        return (double) childrenTree.values().stream().mapToLong(Collection::size).sum();
     }
 
     protected Map<Class<?>, Set<Class<?>>> getAllParents(Set<Class<?>> allClasses) {
